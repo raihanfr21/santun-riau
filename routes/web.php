@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
@@ -21,13 +22,32 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 });
 
+// Route Debugging & Install
 Route::get('/install-db', function () {
     try {
-        \Illuminate\Support\Facades\Artisan::call('migrate --force');
-        \Illuminate\Support\Facades\Artisan::call('db:seed --class=AdminSeeder --force');
+        echo "<h1>Memulai Perbaikan...</h1>";
+
+        // 1. BERSIHKAN CACHE (PENTING!)
+        Artisan::call('optimize:clear');
+        echo "✅ Cache Aplikasi Dibersihkan.<br>";
         
-        return '<h1>SUKSES!</h1> Database berhasil dimigrasi dan Akun Admin sudah dibuat.';
-    } catch (\Exception $e) {
-        return '<h1>GAGAL :(</h1>' . $e->getMessage();
+        Artisan::call('config:clear');
+        echo "✅ Config Cache Dihapus.<br>";
+
+        // 2. MIGRASI DATABASE
+        Artisan::call('migrate --force');
+        echo "✅ Tabel Database Berhasil Dibuat.<br>";
+        
+        // 3. SEEDER (Bikin Admin)
+        Artisan::call('db:seed --class=AdminSeeder --force');
+        echo "✅ Akun Admin Berhasil Dibuat.<br>";
+        
+        return "<h1>SUKSES TOTAL! Silakan Login.</h1>";
+        
+    } catch (\Throwable $e) {
+        // Tampilkan Error Lengkap
+        return '<h1 style="color:red">MASIH ERROR :(</h1>' .
+               '<pre>' . $e->getMessage() . '</pre><br>' .
+               '<small>File: ' . $e->getFile() . ' baris ' . $e->getLine() . '</small>';
     }
 });

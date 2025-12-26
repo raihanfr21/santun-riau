@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
@@ -28,7 +29,7 @@ class AuthController extends Controller
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');
     }
-    
+
     public function logout(Request $request)
     {
         Auth::logout();
