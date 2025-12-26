@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
         $middleware->alias([
-        'force-https' => \App\Http\Middleware\ForceHttps::class,
+        $middleware->prepend(\App\Http\Middleware\ForceHttps::class),
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
