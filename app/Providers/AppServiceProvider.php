@@ -15,10 +15,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Paksa HTTPS kalau di Vercel/Production
-        if (config('app.env') === 'production' || env('VERCEL')) {
-            URL::forceScheme('https');
-        }
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+        URL::forceScheme('https');
+    }
 
         Paginator::useTailwind();
     }
