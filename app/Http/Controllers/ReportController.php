@@ -9,7 +9,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $reports = Report::latest()->paginate(50);
+        $reports = Report::latest()->paginate(5);
         
         return view('welcome', compact('reports'));
     }
