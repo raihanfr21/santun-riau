@@ -32,26 +32,34 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 });
 
-// Pastikan use ini ada di paling atas file
 use Illuminate\Support\Facades\DB;
 
 Route::get('/install-db', function () {
     try {
-        // 1. NUCLEAR WIPE: Hapus Schema Public secara paksa
-        // Ini akan memusnahkan semua tabel yang nyangkut/error
-        DB::statement('DROP SCHEMA public CASCADE');
-        DB::statement('CREATE SCHEMA public');
+        // 1. PUTUS KONEKSI LAMA (PENTING!)
+        // Ini obat untuk error "current transaction is aborted"
+        DB::purge('pgsql'); 
         
-        // 2. JALANKAN MIGRATE DARI NOL
-        // Karena database sudah kosong melompong, migrate pasti lancar
+        // 2. Buat Koneksi Baru yang Segar (Raw PHP)
+        $pdo = DB::connection('pgsql')->getPdo();
+
+        // 3. JALANKAN SQL MANUAL (Tanpa Laravel Wrapper)
+        // Hapus schema public dan buat ulang
+        $pdo->exec('DROP SCHEMA public CASCADE');
+        $pdo->exec('CREATE SCHEMA public');
+        $pdo->exec('GRANT ALL ON SCHEMA public TO public'); // Kembalikan izin akses
+        
+        // 4. JALANKAN MIGRATE
+        // Sekarang database sudah 100% kosong dan segar
         Artisan::call('migrate --force');
         
-        // 3. JALANKAN SEEDER (Opsional, kalau ada AdminSeeder)
+        // 5. Seed (Opsional, nyalakan jika perlu)
         // Artisan::call('db:seed --class=AdminSeeder --force');
 
-        return "<h1>SUKSES TOTAL!</h1> Database sudah di-reset bersih dan dimigrasi ulang.";
+        return "<h1>ALHAMDULILLAH SUKSES!</h1> Database sudah di-reset total via Raw Connection.";
+        
     } catch (\Throwable $e) {
-        // Tampilkan error lengkap biar ketahuan
-        return "<h1>GAGAL:</h1> " . $e->getMessage();
+        return "<h1>GAGAL LAGI:</h1> " . $e->getMessage() . 
+               "<br><br>Trace: " . $e->getTraceAsString();
     }
 });
