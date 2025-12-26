@@ -1,25 +1,20 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// 1. Cek Maintenance Mode
+// Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
-// 2. Register Composer
+// Register the Composer autoloader...
 require __DIR__.'/../vendor/autoload.php';
 
-// 3. Bootstrap Laravel
+// Bootstrap Laravel and handle the request...
+/** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
-/* --- JURUS SAKTI VERCEL ---
-   Memaksa Laravel menggunakan folder /tmp untuk penyimpanan 
-   karena folder lain Read-Only.
-*/
-$app->useStoragePath('/tmp/storage');
-
-// 4. Handle Request
 $app->handleRequest(Request::capture());
