@@ -36,8 +36,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 Route::get('/install-db', function () {
     try {
         Artisan::call('optimize:clear'); // Bersihkan cache dulu
-        Artisan::call('migrate --force');
-        Artisan::call('db:seed --class=AdminSeeder --force');
+        Artisan::call('migrate:fresh --seed --force');
         return "<h1>SUKSES! Database & Admin Siap.</h1>";
     } catch (\Throwable $e) {
         return "<h1>ERROR:</h1> " . $e->getMessage();
