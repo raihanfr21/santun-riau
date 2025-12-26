@@ -32,13 +32,26 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 });
 
-// --- ROUTE INSTALL DB (HANYA UNTUK DEPLOY VERCEL) ---
+// Pastikan use ini ada di paling atas file
+use Illuminate\Support\Facades\DB;
+
 Route::get('/install-db', function () {
     try {
-        Artisan::call('optimize:clear'); // Bersihkan cache dulu
-        Artisan::call('migrate:fresh --seed --force');
-        return "<h1>SUKSES! Database & Admin Siap.</h1>";
+        // 1. NUCLEAR WIPE: Hapus Schema Public secara paksa
+        // Ini akan memusnahkan semua tabel yang nyangkut/error
+        DB::statement('DROP SCHEMA public CASCADE');
+        DB::statement('CREATE SCHEMA public');
+        
+        // 2. JALANKAN MIGRATE DARI NOL
+        // Karena database sudah kosong melompong, migrate pasti lancar
+        Artisan::call('migrate --force');
+        
+        // 3. JALANKAN SEEDER (Opsional, kalau ada AdminSeeder)
+        // Artisan::call('db:seed --class=AdminSeeder --force');
+
+        return "<h1>SUKSES TOTAL!</h1> Database sudah di-reset bersih dan dimigrasi ulang.";
     } catch (\Throwable $e) {
-        return "<h1>ERROR:</h1> " . $e->getMessage();
+        // Tampilkan error lengkap biar ketahuan
+        return "<h1>GAGAL:</h1> " . $e->getMessage();
     }
 });
