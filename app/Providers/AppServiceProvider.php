@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\URL; // <--- BARIS INI WAJIB ADA!
+use Illuminate\Support\Facades\URL; 
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Paksa HTTPS kalau di Vercel/Production
-        if (env('VERCEL') || env('APP_ENV') === 'production') {
+        if (config('app.env') === 'production' || env('VERCEL')) {
             URL::forceScheme('https');
         }
 
