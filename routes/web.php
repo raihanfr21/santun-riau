@@ -20,3 +20,14 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::patch('/update/{id}', [AdminController::class, 'updateStatus'])->name('admin.update');
     Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 });
+
+Route::get('/install-db', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate --force');
+        \Illuminate\Support\Facades\Artisan::call('db:seed --class=AdminSeeder --force');
+        
+        return '<h1>SUKSES!</h1> Database berhasil dimigrasi dan Akun Admin sudah dibuat.';
+    } catch (\Exception $e) {
+        return '<h1>GAGAL :(</h1>' . $e->getMessage();
+    }
+});
