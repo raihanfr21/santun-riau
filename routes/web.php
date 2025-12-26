@@ -32,17 +32,27 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 });
 
+use Illuminate\Support\Facades\DB;
+
 Route::get('/install-db', function () {
     try {
-        // Cukup migrate fresh saja (Hapus tabel, buat ulang)
-        // Tidak perlu drop schema lagi karena schema sudah aman
-        Artisan::call('migrate:fresh --force');
+        // 1. Putus semua koneksi lama
+        DB::disconnect('pgsql');
         
-        // Seed jika perlu
-        // Artisan::call('db:seed --class=AdminSeeder --force');
+        // 2. Gunakan koneksi mentah tanpa transaksi
+        $pdo = DB::connection('pgsql')->getPdo();
+        
+        // 3. Bersihkan sisa-sisa yang mungkin nyangkut (lagi)
+        $pdo->exec('DROP SCHEMA IF EXISTS public CASCADE');
+        $pdo->exec('CREATE SCHEMA public');
+        $pdo->exec('GRANT ALL ON SCHEMA public TO public');
 
-        return "<h1>SUKSES TOTAL!</h1> Database berhasil di-migrate.";
+        // 4. Jalankan migrasi melalui Artisan dengan flag --force
+        // Kita tidak pakai migrate:fresh di sini karena kita sudah DROP manual
+        Artisan::call('migrate', ['--force' => true]);
+
+        return "<h1>ALHAMDULILLAH!</h1> Database berhasil dimigrasi dari nol.";
     } catch (\Throwable $e) {
-        return "<h1>GAGAL:</h1> " . $e->getMessage();
+        return "<h1>GAGAL LAGI:</h1> " . $e->getMessage();
     }
 });

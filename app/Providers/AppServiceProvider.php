@@ -14,6 +14,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        if (env('VERCEL') || env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
         Paginator::useTailwind(); // <--- Tambahkan Baris Ini
     }
 }
