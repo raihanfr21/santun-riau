@@ -9,7 +9,7 @@ Proyek ini merupakan **Proyek Studi Kasus (Study Case)** untuk tujuan pembelajar
 ---
 
 ### 📝 **Deskripsi Proyek**
-**Santun Riau** adalah platform aspirasi dan pengaduan layanan publik berbasis *web*. Proyek ini dirancang khusus untuk mendemonstrasikan bagaimana aplikasi **Laravel 11** dapat dioptimalkan agar berjalan secara efisien di lingkungan **Cloud** dan **Serverless**.
+**Santun Riau** adalah platform aspirasi dan pengaduan layanan publik berbasis *web*. Proyek ini dirancang khusus untuk mendemonstrasikan bagaimana **Laravel** dapat dioptimalkan agar berjalan secara efisien di lingkungan **Cloud** dan **Serverless**.
 
 Sistem ini mencakup siklus pelaporan yang komprehensif, mulai dari pengisian formulir dengan dukungan **titik koordinat lokasi**, unggah bukti visual melalui integrasi *cloud storage*, hingga manajemen status laporan pada sisi administrator.
 
