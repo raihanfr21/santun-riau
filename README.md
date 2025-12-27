@@ -56,7 +56,6 @@ Mengamankan session CSRF pada komunikasi antar-server melalui HTTPS.
 <img width="1483" height="856" alt="image" src="https://github.com/user-attachments/assets/7b859106-8851-4f15-a9d2-e948c13e5c74" />
 <img width="1501" height="861" alt="image" src="https://github.com/user-attachments/assets/667b34b6-3ed1-4f75-afa4-69c00b83571f" />
 <img width="1919" height="858" alt="image" src="https://github.com/user-attachments/assets/1dbacd20-520e-443f-97ba-1cd30f60b105" />
-<img width="1919" height="855" alt="image" src="https://github.com/user-attachments/assets/b9959628-2291-4025-94cd-8bdc38cda664" />
 <img width="1918" height="866" alt="image" src="https://github.com/user-attachments/assets/1d03da6f-8bbb-4db0-8c87-f93be9825012" />
-
+<img width="1919" height="855" alt="image" src="https://github.com/user-attachments/assets/b9959628-2291-4025-94cd-8bdc38cda664" />
 
