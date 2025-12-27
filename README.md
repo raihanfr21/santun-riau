@@ -49,3 +49,5 @@ Menangani koneksi database PostgreSQL pada lingkungan Connection Pooling.
 Mengatasi masalah penulisan direktori pada server Read-Only (Vercel).
 
 Mengamankan session CSRF pada komunikasi antar-server melalui HTTPS.
+
+<img width="1483" height="862" alt="image" src="https://github.com/user-attachments/assets/9ef1bd54-ca65-41d5-bb2c-033045e80f3b" />
