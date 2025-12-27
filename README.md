@@ -3,7 +3,7 @@
 
 ---
 
-### ⚠️ **Pernyataan Penyangkalan (Disclaimer)**
+### ⚠️ **Disclaimer**
 Proyek ini merupakan **Proyek Studi Kasus (Study Case)** untuk tujuan pembelajaran pengembangan perangkat lunak dan **BUKAN** merupakan aplikasi resmi milik **Pemerintah Provinsi Riau**. Seluruh data, logo, dan informasi yang ditampilkan bersifat **simulasi (fiktif)** guna mendemonstrasikan implementasi teknis *framework* **Laravel** dalam ekosistem *serverless*.
 
 ---
@@ -24,7 +24,7 @@ Sistem ini mencakup siklus pelaporan yang komprehensif, mulai dari pengisian for
 
 ---
 
-### 🛠️ **Teknologi yang Digunakan (Tech Stack)**
+### 🛠️ **Tech Stack**
 * **Core Framework**: Laravel 11 (PHP 8.3)
 * **Serverless Database**: Neon PostgreSQL
 * **Cloud Media Storage**: Cloudinary (Media Management)
@@ -33,7 +33,7 @@ Sistem ini mencakup siklus pelaporan yang komprehensif, mulai dari pengisian for
 
 ---
 
-### ⚙️ **Konfigurasi Lingkungan (Environment)**
+### ⚙️ **Environment**
 Aplikasi ini telah dikonfigurasi secara khusus di **Vercel** dengan variabel berikut:
 * `SESSION_DRIVER=cookie` – Mengatasi arsitektur *stateless* pada sistem Vercel.
 * `DB_PREPARED_STATEMENTS=false` – Mitigasi error *cached plan* pada **PostgreSQL Connection Pooler**.
@@ -50,7 +50,7 @@ Dalam proses pengembangan sistem ini, terdapat beberapa tantangan teknis yang be
 
 ---
 
-### 🖼️ **Galeri Antarmuka**
+### 🖼️ **Galeri**
 
 <img width="1483" height="862" alt="image" src="https://github.com/user-attachments/assets/9ef1bd54-ca65-41d5-bb2c-033045e80f3b" />
 <img width="1496" height="862" alt="image" src="https://github.com/user-attachments/assets/fdbb9ae4-4c64-4ad3-97d7-c5e86886e473" />
