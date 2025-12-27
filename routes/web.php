@@ -15,7 +15,6 @@ use App\Http\Controllers\AuthController; // <--- INI KUNCI PERBAIKANNYA
 
 // Halaman Depan
 Route::get('/', [ReportController::class, 'index'])->name('home');
-Route::get('/lapor', [ReportController::class, 'index'])->name('lapor.index');
 Route::post('/lapor', [ReportController::class, 'store'])->name('lapor.store');
 
 // --- ROUTE AUTH (LOGIN/LOGOUT) ---
