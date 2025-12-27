@@ -8,6 +8,12 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary; // Wajib ada
 
 class ReportController extends Controller
 {
+    public function index()
+    {
+        $reports = Report::latest()->paginate(5);
+        
+        return view('welcome', compact('reports'));
+    }
     public function store(Request $request)
     {
         // 1. Validasi Input
