@@ -8,6 +8,14 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary; // Wajib ada
 
 class ReportController extends Controller
 {
+    public function index()
+    {
+        // Jika Abang mau menampilkan daftar laporan di bawah form, pakai ini:
+        $reports = Report::orderBy('created_at', 'desc')->get();
+        
+        // Sesuaikan 'lapor' dengan nama file blade Abang (misal: resources/views/lapor.blade.php)
+        return view('lapor', compact('reports')); 
+    }
     public function store(Request $request)
     {
         // 1. Validasi Input
