@@ -1,4 +1,5 @@
 🚀 Santun Riau - Sistem Pelaporan Masyarakat (Study Case)
+
 ⚠️ Disclaimer
 Proyek ini merupakan Proyek Studi Kasus (Study Case) untuk tujuan pembelajaran pengembangan perangkat lunak dan BUKAN merupakan aplikasi resmi milik Pemerintah Provinsi Riau. Seluruh data, logo, dan informasi yang ditampilkan bersifat simulasi (fiktif) untuk menunjukkan implementasi teknis framework Laravel dalam lingkungan serverless.
 
