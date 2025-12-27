@@ -1,56 +1,57 @@
-🚀 Santun Riau - Sistem Pelaporan Masyarakat (Study Case)
+# 🚀 **SANTUN RIAU**
+### *Sistem Informasi Pelaporan Masyarakat (Studi Kasus)*
 
-⚠️ Disclaimer
-Proyek ini merupakan Proyek Studi Kasus (Study Case) untuk tujuan pembelajaran pengembangan perangkat lunak dan BUKAN merupakan aplikasi resmi milik Pemerintah Provinsi Riau. Seluruh data, logo, dan informasi yang ditampilkan bersifat simulasi (fiktif) untuk menunjukkan implementasi teknis framework Laravel dalam lingkungan serverless.
+---
 
-📝 Deskripsi Proyek
-Santun Riau adalah platform aspirasi dan pengaduan layanan publik berbasis web. Proyek ini dibangun untuk mendemonstrasikan bagaimana aplikasi Laravel 11 dapat dioptimalkan agar berjalan secara efisien di lingkungan Cloud dan Serverless.
+### ⚠️ **Pernyataan Penyangkalan (Disclaimer)**
+Proyek ini merupakan **Proyek Studi Kasus (Study Case)** untuk tujuan pembelajaran pengembangan perangkat lunak dan **BUKAN** merupakan aplikasi resmi milik **Pemerintah Provinsi Riau**. Seluruh data, logo, dan informasi yang ditampilkan bersifat **simulasi (fiktif)** guna mendemonstrasikan implementasi teknis *framework* **Laravel** dalam ekosistem *serverless*.
 
-Aplikasi ini mencakup alur pelaporan masyarakat mulai dari pengisian form dengan titik koordinat lokasi, unggah bukti gambar, hingga manajemen status laporan oleh administrator.
+---
 
-✨ Fitur Utama
-Form Pelaporan: Input laporan masyarakat yang mendukung kategori dan deskripsi detail.
+### 📝 **Deskripsi Proyek**
+**Santun Riau** adalah platform aspirasi dan pengaduan layanan publik berbasis *web*. Proyek ini dirancang khusus untuk mendemonstrasikan bagaimana aplikasi **Laravel 11** dapat dioptimalkan agar berjalan secara efisien di lingkungan **Cloud** dan **Serverless**.
 
-Geolokasi: Integrasi titik koordinat (Latitude & Longitude) untuk akurasi lokasi kejadian.
+Sistem ini mencakup siklus pelaporan yang komprehensif, mulai dari pengisian formulir dengan dukungan **titik koordinat lokasi**, unggah bukti visual melalui integrasi *cloud storage*, hingga manajemen status laporan pada sisi administrator.
 
-Manajemen Aset Cloud: Unggah foto bukti laporan langsung ke Cloudinary (menghindari limitasi read-only pada Vercel).
+---
 
-Autentikasi Admin: Sistem login untuk petugas guna mengelola, memvalidasi, dan memperbarui status laporan (Pending, Proses, Selesai, Ditolak).
+### ✨ **Fitur Utama**
+* **Formulir Pelaporan Terpadu**: Input data pengaduan yang mendukung kategorisasi laporan dan deskripsi detail secara terstruktur.
+* **Integrasi Geolokasi**: Implementasi titik koordinat (**Latitude & Longitude**) untuk akurasi lokasi kejadian yang presisi.
+* **Manajemen Aset Cloud**: Sistem unggah foto bukti laporan yang terintegrasi langsung dengan **Cloudinary**, guna mengatasi limitasi *read-only* pada infrastruktur **Vercel**.
+* **Autentikasi Administrator**: Sistem keamanan *login* bagi petugas untuk mengelola, memvalidasi, serta memperbarui status laporan (**Pending, Proses, Selesai, Ditolak**).
+* **Optimasi Arsitektur Serverless**: Penyesuaian khusus pada konfigurasi *session* dan *database* untuk menjamin stabilitas aplikasi di lingkungan modern.
 
-Optimasi Serverless: Penyesuaian konfigurasi session dan database khusus untuk infrastruktur modern.
+---
 
-🛠️ Tech Stack
-Framework: Laravel 11 (PHP 8.3)
+### 🛠️ **Teknologi yang Digunakan (Tech Stack)**
+* **Core Framework**: Laravel 11 (PHP 8.3)
+* **Serverless Database**: Neon PostgreSQL
+* **Cloud Media Storage**: Cloudinary (Media Management)
+* **Deployment & Hosting**: Vercel (Serverless Functions)
+* **User Interface**: Tailwind CSS
 
-Database: Neon PostgreSQL (Serverless Database)
+---
 
-Storage: Cloudinary (Cloud Media Management)
+### ⚙️ **Konfigurasi Lingkungan (Environment)**
+Aplikasi ini telah dikonfigurasi secara khusus di **Vercel** dengan variabel berikut:
+* `SESSION_DRIVER=cookie` – Mengatasi arsitektur *stateless* pada sistem Vercel.
+* `DB_PREPARED_STATEMENTS=false` – Mitigasi error *cached plan* pada **PostgreSQL Connection Pooler**.
+* `CLOUDINARY_URL` – Jalur integrasi API penyimpanan media pihak ketiga.
+* `APP_URL` – Protokol wajib **HTTPS** untuk menjamin keamanan *Session* dan *CSRF Token*.
 
-Deployment: Vercel (Serverless Functions)
+---
 
-UI Framework: Tailwind CSS
+### 💡 **Analisis Teknis & Pembelajaran**
+Dalam proses pengembangan sistem ini, terdapat beberapa tantangan teknis yang berhasil diselesaikan:
+1.  **Optimasi Database**: Berhasil menangani koneksi **PostgreSQL** pada lingkungan *Connection Pooling* untuk menjaga performa *query*.
+2.  **Stateless File Handling**: Mengatasi kendala penulisan direktori pada server **Read-Only (Vercel)** dengan mengalihkan *file system* ke jalur *external cloud storage*.
+3.  **Security Protocols**: Mengamankan *session* dan *CSRF validation* pada komunikasi antar-server melalui enkripsi **SSL/HTTPS**.
 
-⚙️ Konfigurasi Environment (Vercel)
-Untuk menjalankan proyek ini di lingkungan serverless, variabel berikut telah dikonfigurasi:
+---
 
-SESSION_DRIVER=cookie – Mengatasi masalah stateless pada Vercel.
+### 🖼️ **Galeri Antarmuka**
 
-DB_PREPARED_STATEMENTS=false – Mencegah error cached plan pada PostgreSQL Pooler.
-
-CLOUDINARY_URL – Integrasi penyimpanan gambar pihak ketiga.
-
-APP_URL – Dipaksa menggunakan HTTPS untuk keamanan session.
-
-💡 Apa yang Saya Pelajari dari Proyek Ini?
-Dalam membangun proyek ini, saya berhasil memecahkan berbagai tantangan teknis seperti:
-
-Menangani koneksi database PostgreSQL pada lingkungan Connection Pooling.
-
-Mengatasi masalah penulisan direktori pada server Read-Only (Vercel).
-
-Mengamankan session CSRF pada komunikasi antar-server melalui HTTPS.
-
-🖼️Gallery
 <img width="1483" height="862" alt="image" src="https://github.com/user-attachments/assets/9ef1bd54-ca65-41d5-bb2c-033045e80f3b" />
 <img width="1496" height="862" alt="image" src="https://github.com/user-attachments/assets/fdbb9ae4-4c64-4ad3-97d7-c5e86886e473" />
 <img width="1483" height="856" alt="image" src="https://github.com/user-attachments/assets/7b859106-8851-4f15-a9d2-e948c13e5c74" />
