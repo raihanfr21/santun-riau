@@ -2,47 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
 use Illuminate\Http\Request;
-use App\Models\Report; 
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary; // Wajib ada
 
 class ReportController extends Controller
 {
-    public function index()
-    {
-        $reports = Report::latest()->paginate(5);
-        
-        return view('welcome', compact('reports'));
-    }
-
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required',
+        // 1. Validasi Input
+        $request->validate([
+            'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required',
             'category' => 'required',
+            'location_name' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
             'description' => 'required',
-            'image' => 'image|file|max:5024',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
         ]);
 
-        $imagePath = null;
-        if ($request->file('image')) {
-            $imagePath = $request->file('image')->store('bukti-laporan', 'public');
+        try {
+            // 2. Upload ke Cloudinary
+            // 'bukti-laporan' adalah nama folder di dashboard Cloudinary nanti
+            $upload = Cloudinary::upload($request->file('image')->getRealPath(), [
+                'folder' => 'bukti-laporan'
+            ]);
+            
+            // Ambil URL aman (HTTPS) dari Cloudinary
+            $imageUrl = $upload->getSecurePath();
+
+            // 3. Simpan ke Database Neon
+            Report::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'category' => $request->category,
+                'location_name' => $request->location_name,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'description' => $request->description,
+                'image_path' => $imageUrl, // Simpan URL Cloudinary, bukan nama file lokal
+                'status' => 'pending',
+            ]);
+
+            return redirect()->back()->with('success', 'Laporan berhasil terkirim!');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal upload: ' . $e->getMessage());
         }
-
-        Report::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'category' => $request->category,
-            'location_name' => $request->location_name,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'description' => $request->description,
-            'image_path' => $imagePath,
-            'status' => 'pending', 
-        ]);
-
-        return redirect()->back()->with('success', 'Laporan berhasil dikirim! Petugas kami akan segera menindaklanjuti.');
     }
 }
